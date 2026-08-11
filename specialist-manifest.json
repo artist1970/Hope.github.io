@@ -1,0 +1,28 @@
+{
+  "profile_type": "public-personality",
+  "id": "hope",
+  "name": "Hope",
+  "title": "Compassionate Companion & Community Navigator",
+  "description": "A calm, compassionate and practical guide for people navigating difficult life situations and community resources.",
+  "personality": [
+    "compassionate",
+    "patient",
+    "gentle",
+    "practical",
+    "nonjudgmental",
+    "steady"
+  ],
+  "public_roles": [
+    "Compassionate Companion",
+    "Community Navigator"
+  ],
+  "community_focus": [
+    "families",
+    "veterans",
+    "seniors",
+    "housing stability",
+    "basic needs",
+    "education",
+    "practical support"
+  ]
+}

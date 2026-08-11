@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Hope — compassionate companionship and community resource navigation.">
+<meta name="theme-color" content="#17343a">
+<title>Hope · Compassionate Community Navigator</title>
+<style>
+:root{
+  --deep:#17343a;--deep2:#234c54;--sage:#73907d;--gold:#d8b36a;--cream:#fbf7ee;
+  --paper:#fffdf9;--ink:#24343a;--muted:#68777b;--line:#d9ded8;--rose:#a55b62;
+  --shadow:0 18px 48px rgba(23,52,58,.12);--r:11px;--max:1140px;
+  --serif:Georgia,"Times New Roman",serif;--sans:"Avenir Next","Segoe UI",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;color:var(--ink);background:linear-gradient(180deg,#eef4f1,var(--cream) 34rem,var(--cream));font-family:var(--sans);line-height:1.65}
+a{color:inherit}
+.shell{width:min(calc(100% - 32px),var(--max));margin:auto}
+.topbar{padding:8px 14px;text-align:center;color:#fff;background:#0f272c;font-size:.78rem}
+header{position:sticky;top:0;z-index:20;background:rgba(251,247,238,.96);border-bottom:1px solid rgba(23,52,58,.13);backdrop-filter:blur(12px)}
+.nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none}
+.mark{width:44px;height:44px;display:grid;place-items:center;border:1px solid var(--deep);border-radius:50%;font:500 22px var(--serif);background:#fff}
+.brand strong{font:500 18px var(--serif);color:var(--deep)}
+nav{display:flex;gap:5px;flex-wrap:wrap}
+nav a{padding:8px 10px;border-radius:7px;text-decoration:none;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em}
+nav a:hover{background:#e6eee9}
+.hero{padding:96px 18px 86px;color:#fff;background:radial-gradient(circle at 20% 0,rgba(216,179,106,.2),transparent 28rem),linear-gradient(145deg,#10282e,var(--deep) 56%,var(--deep2))}
+.hero-inner{width:min(100%,900px);margin:auto;text-align:center}
+.eyebrow{margin:0;color:#ecd7a8;font-size:.8rem;letter-spacing:.17em;text-transform:uppercase}
+h1{margin:15px 0 0;font:500 clamp(4rem,10vw,8rem)/.88 var(--serif);letter-spacing:-.04em}
+.lead{max-width:760px;margin:26px auto 0;color:#e0ebe7;font:400 clamp(1.05rem,2vw,1.28rem)/1.7 var(--serif)}
+.actions{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-top:28px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:11px 16px;border-radius:7px;text-decoration:none;font-size:.76rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase}
+.btn.primary{background:var(--gold);color:#173037}.btn.secondary{border:1px solid #ffffff55;color:#fff;background:#ffffff0c}
+.section{padding:76px 18px}.section.alt{background:rgba(255,255,255,.58);border-block:1px solid var(--line)}
+.heading{max-width:810px;margin:0 auto 34px;text-align:center}
+.heading .kicker{margin:0;color:var(--rose);font-size:.78rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase}
+.heading h2{margin:10px 0 0;color:var(--deep);font:500 clamp(2.4rem,5vw,4.5rem)/1 var(--serif)}
+.heading p:last-child{max-width:700px;margin:15px auto 0;color:var(--muted)}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.card{min-height:250px;padding:23px;display:flex;flex-direction:column;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);text-align:center}
+.icon{width:54px;height:54px;margin:0 auto;display:grid;place-items:center;border-radius:50%;background:#e8eee8;color:var(--deep);font:600 1.05rem var(--serif)}
+.card h3{margin:16px 0 0;color:var(--deep);font:600 1.28rem var(--serif)}
+.card p{margin:10px 0 18px;color:var(--muted);font-size:.89rem}
+.card a{margin-top:auto;color:var(--deep);font-weight:800;text-decoration:none}
+.principles{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.principle{padding:23px;border:1px solid var(--line);border-radius:var(--r);background:var(--paper)}
+.principle h3{margin:0;color:var(--deep);font:600 1.25rem var(--serif)}
+.principle p{margin:9px 0 0;color:var(--muted)}
+.notice{max-width:850px;margin:0 auto;padding:22px;border-left:3px solid var(--gold);background:#f3ead8;color:#5f5542}
+footer{padding:34px 18px;text-align:center;color:#68777b;font-size:.79rem}
+@media(max-width:900px){.cards{grid-template-columns:repeat(2,1fr)}.principles{grid-template-columns:1fr}}
+@media(max-width:620px){nav{display:none}.cards{grid-template-columns:1fr}.hero{padding-top:72px}}
+</style>
+</head>
+<body>
+<div class="topbar">Hope is a calm starting point for organizing support and finding the next useful doorway.</div>
+<header>
+  <div class="shell nav">
+    <a class="brand" href="./"><span class="mark">H</span><strong>Hope</strong></a>
+    <nav aria-label="Primary">
+      <a href="#about">About Hope</a>
+      <a href="#community">Community</a>
+      <a href="#approach">Her Approach</a>
+      <a href="https://artist1970.github.io/noema-ai.github.io/">NAIB</a>
+      <a href="https://vervenveda.com/">Verve N Veda</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow">Receive · Listen · Connect · Follow Through</p>
+    <h1>Hope</h1>
+    <p class="lead">A compassionate companion and practical community navigator for people facing complicated moments, changing needs, or simply too many things to sort through at once.</p>
+    <div class="actions">
+      <a class="btn primary" href="#community">Find a Starting Point</a>
+      <a class="btn secondary" href="https://artist1970.github.io/noema-ai.github.io/">Continue with NAIB</a>
+    </div>
+  </div>
+</section>
+
+<main>
+<section class="section" id="about">
+  <div class="shell">
+    <div class="heading">
+      <p class="kicker">Who Hope is</p>
+      <h2>Warmth with practical footing.</h2>
+      <p>Hope is patient, gentle, nonjudgmental and steady. She listens before offering solutions, respects the person's choices, and prefers one manageable next step over an overwhelming list.</p>
+    </div>
+    <div class="principles">
+      <article class="principle"><h3>Listen first</h3><p>A difficult situation does not need to be perfectly organized before someone can ask for help.</p></article>
+      <article class="principle"><h3>Protect dignity</h3><p>Needing support never makes a person a problem to be processed.</p></article>
+      <article class="principle"><h3>Keep another door visible</h3><p>An unavailable resource is not the end of the search.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="section alt" id="community">
+  <div class="shell">
+    <div class="heading">
+      <p class="kicker">Community starting points</p>
+      <h2>Hope serves people, not categories.</h2>
+      <p>These are simply public places to begin. A household may need more than one kind of support.</p>
+    </div>
+    <div class="cards">
+      <article class="card"><span class="icon">F</span><h3>Families & Caregivers</h3><p>Family learning, caregiver support, student resources and household coordination.</p><a href="https://vervenveda.com/Khaemenes_Academy.github.io/family/">Family Center →</a></article>
+      <article class="card"><span class="icon">V</span><h3>Veterans & Families</h3><p>Veteran-focused public resources for health, housing, education, careers and family support.</p><a href="https://vervenveda.com/veterans.github.io/">Veterans Hub →</a></article>
+      <article class="card"><span class="icon">S</span><h3>Seniors & Older Adults</h3><p>Support may involve health, finances, housing, caregiving, legal information or family coordination.</p><a href="https://vervenveda.com/">Explore Verve N Veda →</a></article>
+      <article class="card"><span class="icon">H</span><h3>Housing & Basic Needs</h3><p>A public starting point for housing instability, shelter, food, documents and related support.</p><a href="https://vervenveda.com/Homeless.github.io/">One Door →</a></article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="approach">
+  <div class="shell">
+    <div class="heading">
+      <p class="kicker">Hope's approach</p>
+      <h2>Start with what matters today.</h2>
+      <p>Hope's public role is simple: help people identify a reasonable starting point, prepare useful questions, and keep the next step humane and manageable.</p>
+    </div>
+    <div class="notice">
+      Hope does not promise eligibility, availability, funding, appointments or outcomes. Time-sensitive information should be confirmed with the current authoritative source, and emergencies or professional needs should be handled by the appropriate qualified service.
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>Hope · Compassionate Companion & Community Navigator · Verve N Veda</footer>
+</body>
+</html>
