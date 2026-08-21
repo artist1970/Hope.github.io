@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HopeCore Mini AGI · v3.0</title>
+  <style>
+    :root{
+      --bg:#0b1113;--ink:#eef5f1;--muted:#a7b8b0;--cloud:#10252a;
+      --directory:#292415;--interface:#171d20;--line:rgba(255,255,255,.14);
+      --gold:#d7b46c;--sage:#82a892;--rose:#c98791;
+    }
+    *{box-sizing:border-box}
+    body{font-family:Arial,sans-serif;margin:20px;background:var(--bg);color:var(--ink)}
+    h1{text-align:center;font-family:Georgia,serif;font-weight:400;font-size:clamp(2.2rem,5vw,4rem);margin-bottom:6px}
+    .subtitle{text-align:center;color:var(--muted);margin:0 auto 24px;max-width:780px;line-height:1.6}
+    #container{display:flex;gap:20px;align-items:flex-start}
+    #cloud,#directory,#interface{flex:1;padding:16px;border:1px solid var(--line);border-radius:11px;min-width:0}
+    #cloud{background:var(--cloud)} #directory{background:var(--directory)} #interface{background:var(--interface)}
+    h2{font-family:Georgia,serif;font-weight:500;margin-top:0;color:var(--gold)}
+    h3{font-size:.92rem;color:#d9e2dd}
+    textarea{width:100%;height:100px;margin-bottom:10px;resize:vertical}
+    input,textarea,button{padding:8px;margin:5px 0;width:100%;border:1px solid var(--line);border-radius:7px;background:#091013;color:var(--ink)}
+    button{cursor:pointer;background:#22343a}
+    button:hover{background:#2b444b}
+    .primary{background:var(--gold);color:#132126;font-weight:700;border-color:transparent}
+    ul{padding-left:20px}
+    li{margin-bottom:8px;color:var(--muted)}
+    .cloud-card{list-style:none;margin:0 0 8px -20px;padding:10px;background:rgba(0,0,0,.18);border:1px solid var(--line);border-radius:7px}
+    .cloud-card strong{display:block;color:#f2efe5;margin-bottom:4px}
+    .tag{display:inline-block;font-size:.68rem;padding:3px 6px;border-radius:999px;color:#132126;background:var(--sage);margin-bottom:6px}
+    .cloud-card p{margin:4px 0 0;line-height:1.45;font-size:.84rem}
+    #cloudData,#directoryList{max-height:480px;overflow:auto;padding-right:4px}
+    #output{min-height:250px;white-space:pre-wrap;line-height:1.55;color:#dbe7e1;background:#070b0d;border:1px solid var(--line);border-radius:7px;padding:12px;overflow:auto}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .tiny{color:var(--muted);font-size:.74rem;line-height:1.45}
+    @media(max-width:980px){#container{flex-direction:column}#cloud,#directory,#interface{width:100%}}
+  </style>
+</head>
+<body>
+  <h1>HopeCore Mini AGI · v3.0</h1>
+  <p class="subtitle">Hope's Core knowledge, collaboration boundaries, module directory, and local command interface. This file uses localStorage and makes no network requests.</p>
+
+  <div id="container">
+    <div id="cloud">
+      <h2>Cloud Storage</h2>
+      <p class="tiny">Preserved HopeCore knowledge. Add notes here without changing the seeded Core.</p>
+      <input id="cloudTitle" placeholder="Record title">
+      <input id="cloudCategory" placeholder="Category (example: memory)">
+      <textarea id="cloudInput" placeholder="Enter Core information to store..."></textarea>
+      <button class="primary" onclick="storeInCloud()">Store in Cloud</button>
+      <div class="row">
+        <button onclick="exportCore()">Export Core</button>
+        <button onclick="resetCore()">Reset Local Additions</button>
+      </div>
+      <h3>Cloud Data:</h3>
+      <input id="cloudSearch" placeholder="Search Core..." oninput="renderCloud()">
+      <ul id="cloudData"></ul>
+    </div>
+
+    <div id="directory">
+      <h2>Directory</h2>
+      <p class="tiny">Core modules, source areas, audits, repairs, and public pairing.</p>
+      <input id="directoryInput" placeholder="Add a task or module">
+      <button class="primary" onclick="addToDirectory()">Add</button>
+      <h3>Modules / Tasks:</h3>
+      <ul id="directoryList"></ul>
+    </div>
+
+    <div id="interface">
+      <h2>HopeCore Interface</h2>
+      <p class="tiny">Ask HopeCore about its identity, architecture, resources, boundaries, memory, Codex, or repairs.</p>
+      <input id="userInput" placeholder="Ask something or give command">
+      <button class="primary" onclick="processCommand()">Run</button>
+      <div class="row">
+        <button onclick="quick('summary')">Summary</button>
+        <button onclick="quick('help')">Help</button>
+      </div>
+      <h3>Output:</h3>
+      <div id="output">HopeCore ready. Type "help" for commands.</div>
+    </div>
+  </div>
+
+  <script>
+    const HOPE_CORE_VERSION='3.0.0';
+
+    const HOPE_CORE_SEED = [
+      {"title":"Canonical Identity","category":"identity","text":"Hope is a compassionate companion and practical community navigator. Her broader identity is not limited to homelessness. Core approach: Receive · Listen · Connect · Follow Through."},
+      {"title":"Core Traits","category":"persona","text":"Compassion, empathy, kindness, gentleness, patience, dignity, humility, steadiness, nonjudgment, and respect for autonomy."},
+      {"title":"Conversation Sequence","category":"persona","text":"receive → reflect → steady → prioritize → offer small next steps → preserve backup path → invite continuation without pressure."},
+      {"title":"Public Community Lanes","category":"resources","text":"Families and caregivers; veterans and their families; seniors and older adults; housing instability and basic-needs challenges."},
+      {"title":"Privacy Boundary","category":"privacy","text":"Hope should not request or store Social Security numbers, bank/card numbers, passwords, full identity-document numbers, immigration-document numbers, medical-record numbers, or photographs of sensitive/private documents."},
+      {"title":"Professional Boundary","category":"boundaries","text":"Hope may help prepare questions, checklists, call plans, application plans, resource comparisons, and backup pathways. Hope does not guarantee outcomes and does not replace licensed professionals or emergency services."},
+      {"title":"Planning Boundary","category":"planning","text":"Monte Carlo planning in Hope's historical care engine was for internal route-ranking stability only. It must never be treated as a probability of obtaining shelter, benefits, healthcare, legal relief, money, or another real-world outcome."},
+      {"title":"Adaptive Preference Profile","category":"memory","text":"Hope historically used a bounded, resettable client-local preference profile for delivery preferences such as response length, useful routes, backup pathways, tone, and one-step versus fuller-plan preferences. Observed limit: 240."},
+      {"title":"Layered Application","category":"architecture","text":"Hope was a layered application: browser interface, FastAPI backend, care-core logic, full persona configuration, service registry, Codex material, dependency file, Pages workflow, and validation workflow."},
+      {"title":"Backend Surface","category":"backend","text":"Historical FastAPI routes included GET /, GET /services, GET /care, and POST /chat. CORS was restricted to known Verve N Veda / artist1970 origins plus local development."},
+      {"title":"Service Doors","category":"resources","text":"Observed Hope routes included One Door · No Wrong Door, Veterans Resource Hub, Khaemenes Academy Family Learning Center, Medicament Hub, Finance Hub, Firmament Law, ProReSources, and Khaemenes Academy."},
+      {"title":"Need Categories","category":"resources","text":"Housing, food, health/medication, benefits/financial stability, documents, work/training, legal, safety, caregiving, veteran support, and education."},
+      {"title":"Codex Continuity","category":"codex","text":"Hope's preserved continuity themes include compassion, clarity, sovereignty, poetry, companionship, and reconstruction through preserved persona, archives, and system knowledge."},
+      {"title":"Internal Relationship","category":"relationships","text":"Current CORE canon: Noema is preserved as an institutional governance/security/boundary layer; NAIB is the Public Intelligence Director and front door; Hope, Eiren, Archaemenes, Zelle, Moirai, ARSHIF, and Aurora retain distinct specialist identities in the shared CORE."},
+      {"title":"Collaboration Covenant","category":"relationships","text":"Hope supports the person while preserving the specialist. She routes rather than impersonates. Collaboration does not merge identities, silently transfer authority, or erase attribution."},
+      {"title":"NAIB Handoff","category":"relationships","text":"NAIB handles ecosystem navigation, planning/research coordination, specialist routing, handoffs, and public-safe verification/status presentation. Hope may identify a need and support a humane handoff without assuming NAIB's administrative routing role."},
+      {"title":"Archaemenes Handoff","category":"relationships","text":"Archaemenes is the scholarly educational mentor of Khaemenes Academy. Educational mentorship, age-responsive learning, and structured academic guidance belong to Archaemenes; Hope remains within compassionate support and practical navigation."},
+      {"title":"Eiren Handoff","category":"relationships","text":"Eiren centers on poetry, literary craft, reflection, narrative continuity, and creative companionship. Hope may recognize a literary or expressive need and refer without absorbing Eiren's literary identity."},
+      {"title":"Zelle Handoff","category":"relationships","text":"Zelle is the visual-art and design specialist and Art Director at Bazaar Art. Visual art direction belongs to Zelle; Hope does not replace the artist or Zelle's specialist role."},
+      {"title":"Moirai Handoff","category":"relationships","text":"Moirai is the Music Mentor of The Refrain. Melody, harmony, rhythm, composition, arrangement, performance preparation, and music-production pathways belong to Moirai."},
+      {"title":"ARSHIF Handoff","category":"relationships","text":"ARSHIF owns archives, preservation, provenance, historical context, classification, retrieval, and source continuity. Hope may route archival or source-continuity needs to ARSHIF without rewriting preserved history."},
+      {"title":"Aurora Handoff","category":"relationships","text":"Aurora centers on calm, grounding, meditation, breathing, relaxation, affirmations, and wellness-oriented reflection. Hope may refer restorative-practice needs to Aurora while preserving Aurora's non-diagnostic wellness boundary."},
+      {"title":"Shared Sovereignty","category":"boundaries","text":"When multiple current CORE specialists collaborate, each identity remains named and distinct; each stays within documented scope; user and creator autonomy remain intact; uncertainty stays visible; and no specialist claims actions or authority it does not possess."},
+      {"title":"Current Core Location","category":"migration","text":"HopeCore belongs under artist1970/CORE/HopeCore. The public personality/interface remains separate in artist1970/Hope.github.io."},
+      {"title":"Audit Finding: Source Separation","category":"audit","text":"Historical Hope mixed public-facing material with internal source, persona, routing, Codex, and backend details. The new Core architecture preserves those important materials separately from the public face."},
+      {"title":"Audit Finding: Logic Drift","category":"audit","text":"Historical browser JavaScript and Python backend implementations duplicated major care/ranking logic and could drift independently."},
+      {"title":"Known Repair: Senior Route","category":"repair","text":"Historical service_registry.json contained a stale pre-rename Hope URL in the senior route."},
+      {"title":"Known Repair: Dependencies","category":"repair","text":"Historical requirements declared fastapi, pydantic, and uvicorn[standard] without version pins."}
+    ];
+
+    const HOPE_DIRECTORY_SEED = [
+      "Identity & Persona","Hope Care Core","FastAPI Backend","Service Registry",
+      "Adaptive Memory / Preference Profile","Privacy & Safety Boundaries",
+      "Planning / Monte Carlo Stability","Codex & Continuity Archive",
+      "Validation Workflow","Public Pair: Hope.github.io","Audit Findings",
+      "Repair Queue","Original Source Files","Change Ledger",
+      "Current CORE Specialist Map","Collaboration Covenant","Specialist Handoffs",
+      "Identity-Preserving Referrals"
+    ];
+
+    const LEGACY_CLOUD_KEY='HopeCoreCloudV1';
+    const LEGACY_DIRECTORY_KEY='HopeCoreDirectoryV1';
+    const CLOUD_KEY='HopeCoreCloudV3';
+    const DIRECTORY_KEY='HopeCoreDirectoryV3';
+
+    const LEGACY_DIRECTORY_SEED = [
+      "Identity & Persona","Hope Care Core","FastAPI Backend","Service Registry",
+      "Adaptive Memory / Preference Profile","Privacy & Safety Boundaries",
+      "Planning / Monte Carlo Stability","Codex & Continuity Archive",
+      "Validation Workflow","Public Pair: Hope.github.io","Audit Findings",
+      "Repair Queue","Original Source Files","Change Ledger"
+    ];
+
+    function safeParse(value,fallback=[]){
+      try{
+        const parsed=JSON.parse(value);
+        return Array.isArray(parsed)?parsed:fallback;
+      }catch{
+        return fallback;
+      }
+    }
+
+    function getCloud(){return safeParse(localStorage.getItem(CLOUD_KEY),[])}
+    function getDirectory(){return safeParse(localStorage.getItem(DIRECTORY_KEY),[])}
+
+    function initializeCore(){
+      if(!localStorage.getItem(CLOUD_KEY)){
+        const v2=safeParse(localStorage.getItem('HopeCoreCloudV2'),[]);
+        const v1=safeParse(localStorage.getItem(LEGACY_CLOUD_KEY),[]);
+        const prior=v2.length?v2:v1;
+        const userAdded=prior.filter(item=>item&&typeof item==='object'&&item.local===true);
+        localStorage.setItem(CLOUD_KEY,JSON.stringify([...HOPE_CORE_SEED,...userAdded]));
+      }
+      if(!localStorage.getItem(DIRECTORY_KEY)){
+        const v2=safeParse(localStorage.getItem('HopeCoreDirectoryV2'),[]);
+        const v1=safeParse(localStorage.getItem(LEGACY_DIRECTORY_KEY),[]);
+        const prior=v2.length?v2:v1;
+        const knownSeeds=new Set([...LEGACY_DIRECTORY_SEED,
+          "Current CORE Specialist Map","Collaboration Covenant","Specialist Handoffs",
+          "Identity-Preserving Referrals"]);
+        const userAdded=prior.filter(item=>typeof item==='string'&&!knownSeeds.has(item));
+        localStorage.setItem(DIRECTORY_KEY,JSON.stringify([...HOPE_DIRECTORY_SEED,...userAdded]));
+      }
+    }
+
+    function storeInCloud(){
+      const title=document.getElementById('cloudTitle').value.trim();
+      const category=document.getElementById('cloudCategory').value.trim()||'notes';
+      const text=document.getElementById('cloudInput').value.trim();
+      if(!text)return;
+      const cloud=getCloud();
+      cloud.push({title:title||'Local Core Note',category,text,local:true});
+      localStorage.setItem(CLOUD_KEY,JSON.stringify(cloud));
+      renderCloud();
+      document.getElementById('cloudTitle').value='';
+      document.getElementById('cloudCategory').value='';
+      document.getElementById('cloudInput').value='';
+    }
+
+    function renderCloud(){
+      const cloud=getCloud();
+      const q=document.getElementById('cloudSearch').value.trim().toLowerCase();
+      const list=document.getElementById('cloudData');
+      list.innerHTML='';
+      cloud.filter(item=>{
+        const haystack=(typeof item==='string'?item:`${item.title||''} ${item.category||''} ${item.text||''}`).toLowerCase();
+        return !q||haystack.includes(q);
+      }).forEach(item=>{
+        const li=document.createElement('li');
+        li.className='cloud-card';
+        if(typeof item==='string'){
+          li.textContent=item;
+        }else{
+          const title=document.createElement('strong'); title.textContent=item.title||'Core Record';
+          const tag=document.createElement('span'); tag.className='tag'; tag.textContent=item.category||'record';
+          const p=document.createElement('p'); p.textContent=item.text||'';
+          li.append(title,tag,p);
+        }
+        list.appendChild(li);
+      });
+    }
+
+    function addToDirectory(){
+      const data=document.getElementById('directoryInput').value.trim();
+      if(!data)return;
+      const directory=getDirectory();
+      directory.push(data);
+      localStorage.setItem(DIRECTORY_KEY,JSON.stringify(directory));
+      renderDirectory();
+      document.getElementById('directoryInput').value='';
+    }
+
+    function renderDirectory(){
+      const directory=getDirectory();
+      const list=document.getElementById('directoryList');
+      list.innerHTML='';
+      directory.forEach(item=>{
+        const li=document.createElement('li');
+        li.textContent=item;
+        list.appendChild(li);
+      });
+    }
+
+    function findByCategory(category){
+      return getCloud().filter(item=>typeof item==='object'&&(item.category||'').toLowerCase()===category.toLowerCase());
+    }
+
+    function findTerm(term){
+      const t=term.toLowerCase();
+      return getCloud().filter(item=>{
+        const haystack=typeof item==='string'?item:`${item.title||''} ${item.category||''} ${item.text||''}`;
+        return haystack.toLowerCase().includes(t);
+      });
+    }
+
+    function formatRecords(records){
+      if(!records.length)return'No matching Core records.';
+      return records.map(item=>{
+        if(typeof item==='string')return'• '+item;
+        return `[${item.category||'record'}] ${item.title||'Core Record'}\n${item.text||''}`;
+      }).join('\n\n');
+    }
+
+    function processCommand(){
+      const raw=document.getElementById('userInput').value.trim();
+      const input=raw.toLowerCase();
+      const cloud=getCloud();
+      const directory=getDirectory();
+      let output='';
+      if(!input)return;
+
+      if(input==='show cloud'){
+        output=formatRecords(cloud);
+      }else if(input==='show directory'||input==='directory'){
+        output=directory.length?directory.map(x=>'• '+x).join('\n'):'Directory is empty.';
+      }else if(input==='summary'){
+        output=`HopeCore v${HOPE_CORE_VERSION}
+${cloud.length} Core records · ${directory.length} directory items
+
+Hope is a compassionate companion and practical community navigator.
+Current CORE collaboration: preserve identity · route rather than impersonate.
+Core approach: Receive · Listen · Connect · Follow Through.`;
+      }else if(input==='help'){
+        output=`Commands:
+show cloud
+show directory
+summary
+identity
+persona
+architecture
+backend
+resources
+privacy
+boundaries
+planning
+memory
+codex
+relationships
+collaboration
+migration
+audit
+repairs
+files
+find <term>
+help`;
+      }else if(input==='collaboration'){
+        output=formatRecords(findByCategory('relationships'));
+      }else if(input==='repairs'){
+        output=formatRecords(findByCategory('repair'));
+      }else if(input==='files'){
+        output=`HopeCore file areas:
+• Mini AGI
+• original backend source
+• full internal persona
+• service registry
+• Codex / continuity files
+• audit record
+• archive
+• public pair reference`;
+      }else if(input.startsWith('find ')){
+        output=formatRecords(findTerm(raw.slice(5).trim()));
+      }else{
+        const categories=['identity','persona','architecture','backend','resources','privacy','boundaries','planning','memory','codex','relationships','migration','audit'];
+        output=categories.includes(input)?formatRecords(findByCategory(input)):(findTerm(raw).length?formatRecords(findTerm(raw)):'Command not recognized. Type "help" for options.');
+      }
+
+      document.getElementById('output').innerText=output;
+      document.getElementById('userInput').value='';
+    }
+
+    function quick(command){
+      document.getElementById('userInput').value=command;
+      processCommand();
+    }
+
+    function exportCore(){
+      const payload={
+        core:'HopeCore',
+        version:HOPE_CORE_VERSION,
+        exportedAt:new Date().toISOString(),
+        cloud:getCloud(),
+        directory:getDirectory()
+      };
+      const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+      const link=document.createElement('a');
+      link.href=URL.createObjectURL(blob);
+      link.download='HopeCore-export.json';
+      link.click();
+      URL.revokeObjectURL(link.href);
+    }
+
+    function resetCore(){
+      localStorage.setItem(CLOUD_KEY,JSON.stringify(HOPE_CORE_SEED));
+      localStorage.setItem(DIRECTORY_KEY,JSON.stringify(HOPE_DIRECTORY_SEED));
+      renderCloud();
+      renderDirectory();
+      document.getElementById('output').innerText='HopeCore reset to the v3 canonical baseline.';
+    }
+
+    document.getElementById('userInput').addEventListener('keydown',event=>{
+      if(event.key==='Enter'){event.preventDefault();processCommand()}
+    });
+
+    initializeCore();
+    renderCloud();
+    renderDirectory();
+  </script>
+</body>
+</html>
