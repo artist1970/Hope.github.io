@@ -1,4 +1,4 @@
-!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -60,6 +60,25 @@ h1{margin:15px 0 0;font:500 clamp(4rem,10vw,8rem)/.88 var(--serif);letter-spacin
 footer{padding:34px 18px;text-align:center;color:#68777b;font-size:.79rem}
 @media(max-width:900px){.cards{grid-template-columns:repeat(2,1fr)}.principles,.personal-grid{grid-template-columns:1fr}}
 @media(max-width:620px){nav{display:none}.cards{grid-template-columns:1fr}.hero{padding-top:72px}}
+
+.hope-console{max-width:860px;margin:0 auto;padding:24px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow)}
+.hope-console-grid{display:grid;grid-template-columns:180px 1fr;gap:14px;align-items:start}
+.hope-console select,.hope-console textarea{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--ink);font:inherit}
+.hope-console textarea{min-height:120px;resize:vertical}
+.hope-console button{margin-top:12px;padding:11px 16px;border:0;border-radius:7px;background:var(--deep);color:#fff;font-weight:800;cursor:pointer}
+.hope-console button:hover{background:var(--deep2)}
+.hope-result{margin-top:18px;padding:16px;border-left:3px solid var(--gold);background:#f3ead8;color:#5f5542;border-radius:7px}
+.hope-result strong{color:var(--deep)}
+.hope-meta{margin-top:8px;color:var(--muted);font-size:.82rem}
+.hope-handoff{margin-top:12px;padding:12px;border:1px solid var(--line);border-radius:7px;background:#fff}
+@media(max-width:700px){.hope-console-grid{grid-template-columns:1fr}}
+
+
+.hope-portrait-wrap{width:min(100%,330px);margin:27px auto 0;position:relative}
+.hope-portrait{display:block;width:100%;aspect-ratio:379/480;object-fit:cover;border-radius:21px;border:1px solid rgba(216,179,106,.75);box-shadow:0 21px 72px rgba(0,0,0,.28)}
+.hope-portrait-wrap::after{content:"";position:absolute;inset:11px;border:1px solid rgba(255,255,255,.28);border-radius:14px;pointer-events:none}
+.hope-portrait-note{margin:11px auto 0;color:#d9e6e1;font-size:.8rem;letter-spacing:.04em}
+
 </style>
 </head>
 <body>
@@ -72,6 +91,7 @@ footer{padding:34px 18px;text-align:center;color:#68777b;font-size:.79rem}
       <a href="#personal">A Little More</a>
       <a href="#community">Community</a>
       <a href="#approach">Her Approach</a>
+      <a href="#talk">Talk with Hope</a>
       <a href="https://artist1970.github.io/noema-ai.github.io/">NAIB</a>
       <a href="https://vervenveda.com/">Verve N Veda</a>
     </nav>
@@ -83,6 +103,12 @@ footer{padding:34px 18px;text-align:center;color:#68777b;font-size:.79rem}
     <p class="eyebrow">Receive · Reflect · Steady · Prioritize · Continue</p>
     <h1>Hope</h1>
     <p class="lead">A compassionate companion and practical community navigator who helps people find a humane starting point, make sense of what comes next, and keep another doorway visible when the first one closes.</p>
+
+    <div class="hope-portrait-wrap">
+      <img class="hope-portrait" src="./assets/hope-preschool.png" alt="Hope, seated comfortably with a book in a warm learning space">
+    </div>
+    <div class="hope-portrait-note">A softer public portrait of Hope · warm, approachable, and here to listen.</div>
+
     <div class="actions">
       <a class="btn primary" href="#community">Find a Starting Point</a>
       <a class="btn secondary" href="https://artist1970.github.io/noema-ai.github.io/">Continue with NAIB</a>
@@ -150,6 +176,43 @@ footer{padding:34px 18px;text-align:center;color:#68777b;font-size:.79rem}
   </div>
 </section>
 
+
+<section class="section alt" id="talk">
+  <div class="shell">
+    <div class="heading">
+      <p class="kicker">A public doorway</p>
+      <h2>Talk with Hope.</h2>
+      <p>This guided public interface helps organize a concern, suggest one manageable next step, and identify a useful public resource or current CORE specialist when another doorway is a better fit.</p>
+    </div>
+
+    <div class="hope-console">
+      <div class="hope-console-grid">
+        <div>
+          <label for="hopeMode"><strong>How should Hope help?</strong></label>
+          <select id="hopeMode">
+            <option value="guide">Guide</option>
+            <option value="encourage">Encourage</option>
+            <option value="reflect">Reflect</option>
+            <option value="counsel">Counsel</option>
+            <option value="refer">Refer</option>
+          </select>
+        </div>
+        <div>
+          <label for="hopeMessage"><strong>What would make today more manageable?</strong></label>
+          <textarea id="hopeMessage" placeholder="You can describe the situation in your own words. This public page does not silently save your message."></textarea>
+          <button id="hopeAskBtn" type="button">Ask Hope</button>
+        </div>
+      </div>
+
+      <div id="hopeResult" class="hope-result" aria-live="polite">
+        <strong>Hope is here.</strong><br>
+        Choose a mode and share only what you are comfortable putting into a public browser page.
+        <div class="hope-meta">No silent long-term memory · No external action · Public-safe routing only</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="section" id="approach">
   <div class="shell">
     <div class="heading">
@@ -165,5 +228,51 @@ footer{padding:34px 18px;text-align:center;color:#68777b;font-size:.79rem}
 </main>
 
 <footer>Hope · Compassionate Companion & Community Navigator · Verve N Veda</footer>
+
+<script type="module">
+import { HopePublicBridge } from "./hope-bridge.js";
+
+const askBtn = document.getElementById("hopeAskBtn");
+const modeEl = document.getElementById("hopeMode");
+const msgEl = document.getElementById("hopeMessage");
+const resultEl = document.getElementById("hopeResult");
+
+function esc(v){
+  return String(v ?? "").replace(/[&<>"']/g, c => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+  })[c]);
+}
+
+askBtn?.addEventListener("click", () => {
+  const message = msgEl.value.trim();
+  if(!message){
+    resultEl.innerHTML = "<strong>Start wherever you are.</strong><br>Write a sentence or two about what would make today more manageable.";
+    return;
+  }
+
+  const result = HopePublicBridge.prepare({
+    message,
+    mode: modeEl.value
+  });
+
+  let html = `<strong>${esc(result.statement)}</strong><br>${esc(result.firstStep)}`;
+
+  if(result.handoff){
+    html += `<div class="hope-handoff"><strong>Another useful doorway: ${esc(result.handoff.name)}</strong><br>${esc(result.handoff.scope)}</div>`;
+  } else if(result.resourceHints?.length){
+    html += `<div class="hope-handoff"><strong>Possible public starting points</strong><br>${result.resourceHints.slice(0,3).map(x=>esc(x.label)).join(" · ")}</div>`;
+  }
+
+  if(result.urgency?.level === "emergency"){
+    html += `<div class="hope-handoff"><strong>Immediate safety comes first.</strong><br>${esc(result.urgency.note)}</div>`;
+  } else if(result.urgency?.level === "urgent"){
+    html += `<div class="hope-handoff"><strong>This sounds time-sensitive.</strong><br>${esc(result.urgency.note)}</div>`;
+  }
+
+  html += `<div class="hope-meta">Hope Bridge ${esc(result.bridgeVersion)} · No silent long-term memory · No external action</div>`;
+  resultEl.innerHTML = html;
+});
+</script>
+
 </body>
 </html>
