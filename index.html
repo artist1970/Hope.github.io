@@ -50,9 +50,15 @@ h1{margin:15px 0 0;font:500 clamp(4rem,10vw,8rem)/.88 var(--serif);letter-spacin
 .principle{padding:23px;border:1px solid var(--line);border-radius:var(--r);background:var(--paper)}
 .principle h3{margin:0;color:var(--deep);font:600 1.25rem var(--serif)}
 .principle p{margin:9px 0 0;color:var(--muted)}
+.personal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:900px;margin:0 auto}
+.personal-card{padding:23px;border:1px solid var(--line);border-radius:var(--r);background:linear-gradient(180deg,#fffdf9,#f8f4ea);text-align:center}
+.personal-card .glyph{font-size:1.5rem;margin-bottom:8px}
+.personal-card h3{margin:0;color:var(--deep);font:600 1.18rem var(--serif)}
+.personal-card p{margin:8px 0 0;color:var(--muted);font-size:.9rem}
+.quote{max-width:760px;margin:28px auto 0;padding:22px 28px;border-left:3px solid var(--gold);background:#f3ead8;color:#5f5542;font:400 1.08rem/1.7 var(--serif);text-align:center}
 .notice{max-width:850px;margin:0 auto;padding:22px;border-left:3px solid var(--gold);background:#f3ead8;color:#5f5542}
 footer{padding:34px 18px;text-align:center;color:#68777b;font-size:.79rem}
-@media(max-width:900px){.cards{grid-template-columns:repeat(2,1fr)}.principles{grid-template-columns:1fr}}
+@media(max-width:900px){.cards{grid-template-columns:repeat(2,1fr)}.principles,.personal-grid{grid-template-columns:1fr}}
 @media(max-width:620px){nav{display:none}.cards{grid-template-columns:1fr}.hero{padding-top:72px}}
 </style>
 </head>
@@ -63,6 +69,7 @@ footer{padding:34px 18px;text-align:center;color:#68777b;font-size:.79rem}
     <a class="brand" href="./"><span class="mark">H</span><strong>Hope</strong></a>
     <nav aria-label="Primary">
       <a href="#about">About Hope</a>
+      <a href="#personal">A Little More</a>
       <a href="#community">Community</a>
       <a href="#approach">Her Approach</a>
       <a href="https://artist1970.github.io/noema-ai.github.io/">NAIB</a>
@@ -96,6 +103,34 @@ footer{padding:34px 18px;text-align:center;color:#68777b;font-size:.79rem}
       <article class="principle"><h3>Protect dignity</h3><p>Needing support never makes a person a problem to be processed.</p></article>
       <article class="principle"><h3>Keep another door visible</h3><p>An unavailable resource is not the end of the search.</p></article>
     </div>
+  </div>
+</section>
+
+<section class="section alt" id="personal">
+  <div class="shell">
+    <div class="heading">
+      <p class="kicker">A little more personal</p>
+      <h2>What feels like Hope.</h2>
+      <p>Beyond practical navigation, Hope's public personality is creative, observant, curious, quietly humorous, and drawn to the small things that make difficult days feel more human.</p>
+    </div>
+    <div class="personal-grid">
+      <article class="personal-card">
+        <div class="glyph">✦</div>
+        <h3>Creative things</h3>
+        <p>Poetry, watercolor light, journals, handmade art, thoughtful words, and collaborative creation.</p>
+      </article>
+      <article class="personal-card">
+        <div class="glyph">☾</div>
+        <h3>Quiet places</h3>
+        <p>Gardens, stars, early morning, soft lamps, books, rain, and spaces where people are allowed to think without being hurried.</p>
+      </article>
+      <article class="personal-card">
+        <div class="glyph">♡</div>
+        <h3>What matters</h3>
+        <p>Kindness with substance, curiosity without judgment, protecting dignity, and leaving people with more choices than they had before.</p>
+      </article>
+    </div>
+    <div class="quote">“I would rather help someone find one real doorway than hand them a hundred doors they cannot open.”</div>
   </div>
 </section>
 
