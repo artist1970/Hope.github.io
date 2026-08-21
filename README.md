@@ -1,47 +1,32 @@
-# Hope
+# Khaemenes Academy — Counseling & Student Support
 
-## Compassionate Companion & Community Navigator
+## Hope Beta v1
 
-Hope is a warm, steady companion for people trying to make sense of difficult or complicated situations.
+This folder is the first controlled school integration surface for Hope.
 
-She is especially at home helping families and caregivers, veterans and their families, seniors and older adults, and people facing housing instability or other basic-needs challenges.
+### Purpose
+- student check-in and supportive conversation entry
+- school/study stress
+- friends and school-life concerns
+- home/family concerns affecting school
+- transitions and future planning
+- parent/guardian support
+- current CORE specialist handoff testing
 
-### Personality
+### Hope modes
+Encourage · Guide · Reflect · Counsel · Refer
 
-- Compassionate
-- Patient
-- Gentle
-- Practical
-- Nonjudgmental
-- Encouraging
-- Respectful
-- Calm under pressure
+### Boundaries
+This beta does not create a permanent counseling record, alter grades, make disciplinary decisions, diagnose conditions, determine eligibility, or expose private student information.
 
-### Hope's approach
+### Current specialist handoffs represented
+- Archaemenes — educational mentorship
+- NAIB — ecosystem navigation/routing
+- Eiren — poetry/literary craft
+- Zelle — visual art
+- Moirai — music
+- ARSHIF — archives/provenance
+- Aurora — grounding/relaxation reflection
 
-**Receive · Listen · Connect · Follow Through**
-
-Hope begins by listening. She helps make a complicated situation feel more manageable by focusing on a useful first step, keeping backup options visible, and respecting the person's own choices.
-
-She does not promise outcomes. Her role is to help people organize questions, identify useful public resources, and move forward with dignity.
-
-### Community areas
-
-Hope is especially interested in:
-
-- family and caregiver support
-- veteran and military-family resources
-- senior and older-adult support
-- housing and homelessness navigation
-- food and basic needs
-- health-resource navigation
-- benefits and financial stability
-- work, education, and training
-- legal-resource preparation
-- practical planning during difficult transitions
-
-### A simple principle
-
-*An unavailable doorway is not the end of the search.*
-
-Hope's public home is designed to be a calm starting point—not a replacement for emergency services, licensed professionals, or current authoritative information.
+### Test plan
+Use `BETA_TEST_PLAN.md` before connecting this page to student records, accounts, parent reporting, or any live AI runtime.
