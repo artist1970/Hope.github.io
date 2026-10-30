@@ -29,6 +29,8 @@ else if(has(s,["benefits","application","documents","forms","financial","job","w
 else if(has(s,["anxious","overwhelmed","stressed","scared","worried","sad","lonely"])){topic="feelings";guidance="That sounds difficult. Would it help to name the part that feels heaviest, or choose one small action and someone trustworthy to speak with?";}
 else {topic=lastTopic||"support";guidance="I hear you. Would you prefer that I listen, help organize the situation, or suggest one small next step? You can share only what feels comfortable.";}
 lastTopic=topic;
+const curated=globalThis.HopePublicKnowledge?.reply(raw);
+if(curated && topic!=="health" && topic!=="school safety")return curated;
 const lead=mode.value==="reflect"?"Let's make room for what happened and what you need. ":mode.value==="encourage"?"You do not have to solve everything at once. ":mode.value==="refer"?"We can identify the right kind of support without assuming it is available. ":mode.value==="counsel"?"Thank you for sharing what you can. ":"Let's take this one step at a time. ";
 return lead+guidance;
 }
