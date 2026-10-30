@@ -1,0 +1,255 @@
+{
+  "schema": "hope-public-qa-v1",
+  "version": 1,
+  "records": [
+    {
+      "id": "hope-public-001",
+      "topic": "welcome",
+      "question": "How can Hope help?",
+      "response": "I can listen, help organize a concern, and suggest one manageable next step.",
+      "keywords": [],
+      "status": "approved",
+      "version": 1
+    },
+    {
+      "id": "hope-public-002",
+      "topic": "privacy",
+      "question": "Should I share personal documents?",
+      "response": "Please keep personal documents and account details out of this public chat.",
+      "keywords": [
+        "should",
+        "share",
+        "personal",
+        "documents"
+      ],
+      "status": "approved",
+      "version": 1
+    },
+    {
+      "id": "hope-public-003",
+      "topic": "housing",
+      "question": "How do I prepare to seek housing support?",
+      "response": "We can prepare questions for a local housing-support provider. Confirm current availability directly.",
+      "keywords": [
+        "prepare",
+        "housing",
+        "support"
+      ],
+      "status": "approved",
+      "version": 1
+    },
+    {
+      "id": "hope-public-004",
+      "topic": "food",
+      "question": "How can I find a community pantry?",
+      "response": "Local community directories may identify food assistance. Verify operating hours and requirements.",
+      "keywords": [
+        "community",
+        "pantry"
+      ],
+      "status": "approved",
+      "version": 1
+    },
+    {
+      "id": "hope-public-005",
+      "topic": "veterans",
+      "question": "Can you help me prepare a veterans resource question?",
+      "response": "Yes. We can organize questions about services and official eligibility requirements.",
+      "keywords": [
+        "prepare",
+        "veterans",
+        "resource",
+        "question"
+      ],
+      "status": "approved",
+      "version": 1
+    },
+    {
+      "id": "hope-public-006",
+      "topic": "caregiving",
+      "question": "How can I organize caregiving responsibilities?",
+      "response": "Start with the most urgent task, one possible helper, and a backup plan.",
+      "keywords": [
+        "organize",
+        "caregiving",
+        "responsibilities"
+      ],
+      "status": "approved",
+      "version": 1
+    },
+    {
+      "id": "hope-public-007",
+      "topic": "school",
+      "question": "My schoolwork feels overwhelming.",
+      "response": "Choose one manageable task. Archaemenes can help with the academic material.",
+      "keywords": [
+        "schoolwork",
+        "feels",
+        "overwhelming"
+      ],
+      "status": "approved",
+      "version": 1
+    },
+    {
+      "id": "hope-public-008",
+      "topic": "bullying",
+      "question": "How do I report a school concern?",
+      "response": "Write down what happened and speak with a trusted adult or the appropriate school contact.",
+      "keywords": [
+        "report",
+        "school",
+        "concern"
+      ],
+      "status": "approved",
+      "version": 1
+    },
+    {
+      "id": "hope-public-009",
+      "topic": "employment",
+      "question": "Can you help plan a job search?",
+      "response": "We can outline résumé preparation, job goals, and sources to verify.",
+      "keywords": [
+        "search"
+      ],
+      "status": "approved",
+      "version": 1
+    },
+    {
+      "id": "hope-public-010",
+      "topic": "benefits",
+      "question": "How do I prepare an assistance application?",
+      "response": "Identify the official program, its requirements, and a safe checklist of document categories.",
+      "keywords": [
+        "prepare",
+        "assistance",
+        "application"
+      ],
+      "status": "approved",
+      "version": 1
+    },
+    {
+      "id": "hope-public-011",
+      "topic": "documents",
+      "question": "How do I prepare for an appointment?",
+      "response": "We can create a list of questions without sharing private identifying information.",
+      "keywords": [
+        "prepare",
+        "appointment"
+      ],
+      "status": "approved",
+      "version": 1
+    },
+    {
+      "id": "hope-public-012",
+      "topic": "legal",
+      "question": "Can you help prepare questions for legal aid?",
+      "response": "I can organize questions for a qualified legal professional, without giving legal representation.",
+      "keywords": [
+        "prepare",
+        "questions",
+        "legal"
+      ],
+      "status": "approved",
+      "version": 1
+    },
+    {
+      "id": "hope-public-013",
+      "topic": "health",
+      "question": "Can you help prepare for a medical appointment?",
+      "response": "I can help draft questions for a qualified healthcare professional.",
+      "keywords": [
+        "prepare",
+        "medical",
+        "appointment"
+      ],
+      "status": "approved",
+      "version": 1
+    },
+    {
+      "id": "hope-public-014",
+      "topic": "seniors",
+      "question": "How can I help an older relative?",
+      "response": "We can organize practical support needs and identify trusted local contacts.",
+      "keywords": [
+        "older",
+        "relative"
+      ],
+      "status": "approved",
+      "version": 1
+    },
+    {
+      "id": "hope-public-015",
+      "topic": "stress",
+      "question": "How do I begin when overwhelmed?",
+      "response": "Choose one concern and one small next step. You may also ask someone you trust for support.",
+      "keywords": [
+        "begin",
+        "overwhelmed"
+      ],
+      "status": "approved",
+      "version": 1
+    },
+    {
+      "id": "hope-public-016",
+      "topic": "referral",
+      "question": "Who handles academic questions?",
+      "response": "Archaemenes is the Academy Principal and academic guide.",
+      "keywords": [
+        "handles",
+        "academic",
+        "questions"
+      ],
+      "status": "approved",
+      "version": 1
+    },
+    {
+      "id": "hope-public-017",
+      "topic": "referral",
+      "question": "Who helps with poetry?",
+      "response": "Eiren is the literary and writing mentor.",
+      "keywords": [
+        "helps",
+        "poetry"
+      ],
+      "status": "approved",
+      "version": 1
+    },
+    {
+      "id": "hope-public-018",
+      "topic": "referral",
+      "question": "Who helps with visual art?",
+      "response": "Zelle supports visual art and Bazaar Art.",
+      "keywords": [
+        "helps",
+        "visual"
+      ],
+      "status": "approved",
+      "version": 1
+    },
+    {
+      "id": "hope-public-019",
+      "topic": "referral",
+      "question": "Who helps with reflection?",
+      "response": "Aurora supports gentle grounding and reflection.",
+      "keywords": [
+        "helps",
+        "reflection"
+      ],
+      "status": "approved",
+      "version": 1
+    },
+    {
+      "id": "hope-public-020",
+      "topic": "referral",
+      "question": "Who handles ecosystem navigation?",
+      "response": "NAIB coordinates ecosystem navigation and specialist routing within its authorized boundaries.",
+      "keywords": [
+        "handles",
+        "ecosystem",
+        "navigation"
+      ],
+      "status": "approved",
+      "version": 1
+    }
+  ]
+}
