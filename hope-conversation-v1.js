@@ -4,6 +4,13 @@ const ask=document.getElementById("ask"),input=document.getElementById("message"
 if(!ask||!input||!result||!mode)return;
 let turns=0,lastTopic="";
 const has=(s,words)=>words.some(w=>s.includes(w));
+
+let public500=[];
+let public500State="loading";
+const normPublic500=v=>String(v||"").normalize("NFKC").toLowerCase().replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ").trim();
+const public500Ready=fetch("./knowledge/mentor-approved-500.v1.json",{cache:"no-store"}).then(r=>{if(!r.ok)throw Error("bank unavailable");return r.json()}).then(d=>{if(d.schema!=="vnv-public-mentor-qa-v1"||d.mentorId!=="hope"||!Array.isArray(d.records)||d.records.length!==500)throw Error("schema");const seen=new Set();public500=d.records.filter(r=>{const q=normPublic500(r.question);if(!q||!r.answer?.trim()||seen.has(q)||!(/^(approved|founder-approved-editorial)/.test(r.status)))return false;seen.add(q);return true;});if(public500.length!==500)throw Error("approval mismatch");public500State="ready";return 500;}).catch(()=>{public500State="unavailable";return 0;});
+function lookupPublic500(input){if(public500State!=="ready")return null;const q=normPublic500(input);const exact=public500.find(r=>normPublic500(r.question)===q);if(exact)return exact.answer;const queryWords=new Set(q.split(" ").filter(t=>t.length>=5));if(queryWords.size<2)return null;let best=null,score=0;for(const row of public500){const words=new Set(normPublic500(row.question).split(" ").filter(t=>t.length>=5));let overlap=0;for(const w of queryWords)if(words.has(w))overlap++;const confidence=overlap/Math.max(queryWords.size,words.size,1);if(overlap>=2&&confidence>score){best=row;score=confidence;}}return score>=0.72?best.answer:null;}
+
 function answer(raw){
 const s=raw.toLowerCase().trim().slice(0,1500);turns++;
 if(!s)return "You can begin with one sentence, or choose a support area above.";
@@ -29,6 +36,7 @@ else if(has(s,["benefits","application","documents","forms","financial","job","w
 else if(has(s,["anxious","overwhelmed","stressed","scared","worried","sad","lonely"])){topic="feelings";guidance="That sounds difficult. Would it help to name the part that feels heaviest, or choose one small action and someone trustworthy to speak with?";}
 else {topic=lastTopic||"support";guidance="I hear you. Would you prefer that I listen, help organize the situation, or suggest one small next step? You can share only what feels comfortable.";}
 lastTopic=topic;
+const approvedAnswer=lookupPublic500(raw);if(approvedAnswer&&topic!=="health"&&topic!=="school safety")return approvedAnswer;
 const curated=globalThis.HopePublicKnowledge?.reply(raw);
 if(curated && topic!=="health" && topic!=="school safety")return curated;
 const lead=mode.value==="reflect"?"Let's make room for what happened and what you need. ":mode.value==="encourage"?"You do not have to solve everything at once. ":mode.value==="refer"?"We can identify the right kind of support without assuming it is available. ":mode.value==="counsel"?"Thank you for sharing what you can. ":"Let's take this one step at a time. ";
