@@ -110,7 +110,7 @@ footer{padding:28px 18px;text-align:center;color:var(--muted);font-size:.75rem}
     </select>
     <label for="message" style="margin-top:12px">What would make today a little more manageable?</label>
     <textarea id="message" placeholder="Share only what you are comfortable entering here."></textarea>
-    <button class="action" id="ask">Ask Hope</button>
+    <button class="action" id="ask">Ask Hope</button><button type="button" class="action" id="hope-clear" style="margin-left:9px">Clear Conversation</button>
     <div class="result" id="result" aria-live="polite"><h3>Hope is here.</h3>You can begin with one sentence. This beta does not silently save what you type.</div>
    </div>
   </div>
@@ -189,7 +189,7 @@ document.getElementById("ask").onclick=()=>{
 };
 </script>
 <script src="hope-public-knowledge-v1.js" defer></script>
-<script src="hope-conversation-v1.js" defer></script>
+<script src="hope-conversation-v1.js" defer></script><script src="hope-voice-v1.js" defer></script>
 <script src="https://vervenveda.com/assets/vnv-ecosystem-toolbar.js"></script>
 </body>
 </html>
