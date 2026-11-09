@@ -34,5 +34,27 @@ if(curated && topic!=="health" && topic!=="school safety")return curated;
 const lead=mode.value==="reflect"?"Let's make room for what happened and what you need. ":mode.value==="encourage"?"You do not have to solve everything at once. ":mode.value==="refer"?"We can identify the right kind of support without assuming it is available. ":mode.value==="counsel"?"Thank you for sharing what you can. ":"Let's take this one step at a time. ";
 return lead+guidance;
 }
-ask.addEventListener("click",function(event){event.preventDefault();event.stopImmediatePropagation();const message=input.value.trim();const reply=answer(message);result.replaceChildren();const heading=document.createElement("h3");heading.textContent="Hope · Conversation";const p=document.createElement("p");p.textContent=reply;const note=document.createElement("small");note.textContent="Local guidance only · no message history saved · no verified service availability";result.append(heading,p,note);},true);
+// Preserve each turn on this page only. No messages are transmitted or persisted.
+result.replaceChildren();
+result.setAttribute("role","log");
+result.setAttribute("aria-label","Conversation with Hope");
+result.style.cssText+=";display:flex;flex-direction:column;gap:12px;max-height:480px;min-height:150px;overflow-y:auto;padding:14px";
+function append(who,text){
+ const box=document.createElement("div");box.className="hope-turn";box.dataset.speaker=who==="You"?"you":"hope";
+ box.style.cssText="padding:12px 14px;border:1px solid currentColor;border-radius:7px;max-width:94%;align-self:"+(who==="You"?"flex-end":"flex-start");
+ const name=document.createElement("strong");name.textContent=who;name.style.cssText="display:block;font-weight:400;font-size:16px";
+ const paragraph=document.createElement("p");paragraph.textContent=text;paragraph.style.cssText="margin:5px 0 0;white-space:pre-wrap;font-size:16px;line-height:1.65";
+ box.append(name,paragraph);result.append(box);result.scrollTop=result.scrollHeight;
+}
+append("Hope","Hope is here. You can begin with one sentence. This conversation stays on this page only.");
+function submit(event){
+ if(event){event.preventDefault();event.stopImmediatePropagation?.();}
+ const message=input.value.trim().slice(0,1500);if(!message)return;
+ input.value="";append("You",message);
+ const reply=answer(message);
+ append("Hope",reply);input.focus({preventScroll:true});
+}
+ask.addEventListener("click",submit,true);
+input.addEventListener("keydown",event=>{if(event.key==="Enter"&&!event.shiftKey&&!event.isComposing){event.preventDefault();submit();}});
+document.getElementById("hope-clear")?.addEventListener("click",()=>{result.replaceChildren();input.value="";turns=0;lastTopic="";append("Hope","A fresh beginning. You can share as much or as little as you choose.");input.focus({preventScroll:true});});
 })();
