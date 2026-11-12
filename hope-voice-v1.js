@@ -4,7 +4,7 @@ const log=document.getElementById("result");if(!log)return;
 const panel=document.createElement("div");panel.style.cssText="display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin:15px 0;padding:13px;border:1px solid currentColor;border-radius:7px";
 const label=document.createElement("label");label.textContent="Hope's voice";label.htmlFor="hope-voice-select";label.style.cssText="font-size:16px";
 const select=document.createElement("select");select.id="hope-voice-select";select.style.cssText="min-width:180px;max-width:100%;flex:1;padding:10px;background:#f4f0e7;color:#243038;border:1px solid #a58d7e;border-radius:7px;font-size:16px";
-const autoplay=document.createElement("button");autoplay.type="button";autoplay.textContent="Voice Off";autoplay.className="action";autoplay.setAttribute("aria-pressed","false");autoplay.setAttribute("aria-label","Toggle automatic narration of Hope replies");
+const autoplay=document.createElement("button");autoplay.type="button";autoplay.id="hope-voice-autoplay";autoplay.textContent="Voice Off";autoplay.className="action";autoplay.setAttribute("aria-pressed","false");autoplay.setAttribute("aria-label","Toggle automatic narration of Hope replies");
 const preview=document.createElement("button");preview.type="button";preview.textContent="Preview voice";preview.className="action";
 const stop=document.createElement("button");stop.type="button";stop.textContent="Stop audio";stop.className="action";
 const status=document.createElement("p");status.setAttribute("role","status");status.setAttribute("aria-live","polite");status.style.cssText="margin:0;width:100%;font-size:16px";status.textContent="Speech is optional and never starts automatically.";
