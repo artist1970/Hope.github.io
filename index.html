@@ -148,45 +148,16 @@ footer{padding:28px 18px;text-align:center;color:var(--muted);font-size:.75rem}
 <footer>Khaemenes Academy · Counseling & Student Support · Hope Beta v1</footer>
 
 <script>
-const MODE_COPY={
- encourage:"You do not have to solve everything at once. We can make the next piece smaller.",
- guide:"Let's turn this into one manageable next step.",
- reflect:"We can look at what happened, what matters most to you, and what you want to be different.",
- counsel:"You can start with what feels most important. We do not need to force a solution before the situation is understood.",
- refer:"Let's identify the kind of support that best fits what you are describing."
-};
-const specialists=[
- {name:"Archaemenes",scope:"educational mentorship and structured learning",words:["homework","assignment","lesson","study","class","math","science","curriculum","grade","schoolwork"]},
- {name:"Eiren",scope:"poetry, literary craft and reflective writing",words:["poem","poetry","story","writing","literary"]},
- {name:"Zelle",scope:"visual art direction and creative development",words:["paint","painting","drawing","visual art","canvas","design"]},
- {name:"Moirai",scope:"music mentorship and composition",words:["music","song","melody","harmony","instrument","compose"]},
- {name:"ARSHIF",scope:"archives, provenance and historical context",words:["archive","historical","history","source","provenance","preservation"]},
- {name:"Aurora",scope:"grounding, breathing, relaxation and wellness reflection",words:["breathe","breathing","meditation","grounding","relax","calm"]},
- {name:"NAIB",scope:"ecosystem navigation and specialist routing",words:["where do i go","who handles","route","routing","directory","navigate","specialist"]}
-];
-const message=document.getElementById("message"),mode=document.getElementById("mode"),result=document.getElementById("result");
-document.querySelectorAll("[data-prompt]").forEach(b=>b.onclick=()=>{message.value=b.dataset.prompt;document.getElementById("hope").scrollIntoView({behavior:"smooth"});message.focus()});
-function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
-function handoff(text){
- text=text.toLowerCase();let best=null,score=0;
- specialists.forEach(s=>{let n=s.words.reduce((a,w)=>a+(text.includes(w)?1:0),0);if(n>score){score=n;best=s}});
- return best;
-}
-document.getElementById("ask").onclick=()=>{
- const text=message.value.trim();
- if(!text){result.innerHTML="<h3>Start wherever you are.</h3>One sentence is enough.";return}
- const h=handoff(text);
- let html="<h3>"+esc(MODE_COPY[mode.value])+"</h3>";
- if(mode.value==="guide") html+="A useful first step is to name the smallest part of this situation that can be acted on today.";
- else if(mode.value==="reflect") html+="Try separating what happened, how it affected you, and what you would like to happen next.";
- else if(mode.value==="counsel") html+="Consider what feels most urgent, what is within your control today, and which trusted person should know if you need more support.";
- else if(mode.value==="refer") html+="Based on what you wrote, we can look for the most appropriate doorway rather than sending you everywhere at once.";
- else html+="You are allowed to work through this one piece at a time.";
- if(h) html+='<div class="handoff"><strong>Possible specialist handoff: '+esc(h.name)+'</strong><br>'+esc(h.scope)+'. Hope remains Hope; this is a referral, not an identity switch.</div>';
- else html+='<div class="handoff"><strong>Hope can remain the starting point.</strong><br>No specialist handoff is clearly indicated by this short beta message.</div>';
- html+='<div style="margin-top:9px;font-size:.75rem;color:var(--muted)">Beta v1 · local browser interaction · no silent permanent record</div>';
- result.innerHTML=html;
-};
+/* Non-conversational launch shortcuts only. The external Hope conversation
+   module is the single owner of Ask, Enter, Clear and response rendering. */
+document.querySelectorAll("[data-prompt]").forEach(button=>{
+  button.addEventListener("click",()=>{
+    const input=document.getElementById("message");
+    input.value=button.getAttribute("data-prompt")||"";
+    document.getElementById("hope")?.scrollIntoView({behavior:"smooth"});
+    input.focus();
+  });
+});
 </script>
 <script src="hope-public-knowledge-v1.js" defer></script>
 <script src="hope-conversation-v1.js" defer></script><script src="hope-voice-v1.js" defer></script>
