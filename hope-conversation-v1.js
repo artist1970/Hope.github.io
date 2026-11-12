@@ -31,6 +31,16 @@ else {topic=lastTopic||"support";guidance="I hear you. Would you prefer that I l
 lastTopic=topic;
 const curated=globalThis.HopePublicKnowledge?.reply(raw);
 if(curated && topic!=="health" && topic!=="school safety")return curated;
+/* An attributed source for optional educational/creative questions only.
+ * Consequential support always stays with Hope's own careful guidance.
+ * No transcript or query is transmitted; the federation preloads public static banks. */
+const lowRisk=/\b(?:poetry|poem|painting|drawing|sketch|composition|story writing|grammar|vocabulary|learn french|language practice|art technique|study method)\b/i.test(raw);
+const highRisk=/\b(?:shelter|housing|rent|evict|food|hungry|benefit|disability|health|medicine|medication|insurance|legal|court|financial|emergency|crisis|unsafe|violence|hurt|suicide|self harm|password|account|personal|bank|student record)\b/i.test(raw);
+if(lowRisk&&!highRisk){
+ const ref=globalThis.CreativeSparkMentorQA?.answer(raw,{mentorId:"hope",scope:"hope-support"});
+ if(ref)return "A related public educational answer from "+ref.sourceName+": "+ref.answer+" (Source: "+ref.sourceName+" · "+ref.topic+".) I can help you find a supportive next step if you'd like.";
+}
+
 const lead=mode.value==="reflect"?"Let's make room for what happened and what you need. ":mode.value==="encourage"?"You do not have to solve everything at once. ":mode.value==="refer"?"We can identify the right kind of support without assuming it is available. ":mode.value==="counsel"?"Thank you for sharing what you can. ":"Let's take this one step at a time. ";
 return lead+guidance;
 }
