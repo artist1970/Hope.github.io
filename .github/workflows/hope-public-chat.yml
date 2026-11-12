@@ -25,6 +25,8 @@ on:
       - 'hope-conversation-v1.js'
       - 'hope-voice-v1.js'
       - 'tests/hope-conversation-safety.test.mjs'
+      - 'tests/hope-five-bubble-regression.test.mjs'
+      - '.github/workflows/hope-public-chat.yml'
 permissions:
   contents: read
 jobs:
