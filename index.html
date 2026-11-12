@@ -56,6 +56,7 @@ footer{padding:28px 18px;text-align:center;color:var(--muted);font-size:.75rem}
 @media(max-width:850px){.quick{grid-template-columns:repeat(2,1fr)}.console{grid-template-columns:1fr}.grid{grid-template-columns:1fr}}
 @media(max-width:560px){.navlinks{display:none}.quick{grid-template-columns:1fr}.hero{padding-top:54px}}
 </style>
+<link rel="stylesheet" href="styles/hope-landing-refinement-v1.css">
 </head>
 <body>
 <div class="top">Khaemenes Academy · Student dignity first · Support is not discipline</div>
@@ -68,11 +69,14 @@ footer{padding:28px 18px;text-align:center;color:var(--muted);font-size:.75rem}
  </div>
 </header>
 
-<section class="hero">
+<section class="hero" id="hope-introduction">
  <p class="kicker">Counseling & Student Support</p>
  <h1>You do not have to have<br>the right words.</h1>
  <p class="lead">Hope is a calm starting point for students who need encouragement, help organizing a concern, or a clearer next step. She can stay with the conversation or point toward another appropriate doorway.</p>
  <div class="promise"><span>Encourage</span><span>Guide</span><span>Reflect</span><span>Counsel</span><span>Refer</span></div>
+ <nav class="hope-hero-actions" aria-label="Hope support starting points">
+   <a href="#hope">Talk with Hope</a><a href="#support">Choose a support area</a><a href="#hope-resources">Find public resources</a>
+ </nav>
 </section>
 
 <main>
@@ -90,6 +94,10 @@ footer{padding:28px 18px;text-align:center;color:var(--muted);font-size:.75rem}
 </section>
 
 <section class="alt" id="hope">
+ <nav class="hope-section-anchor" aria-label="Support conversation section">
+  <span>Hope · A compassionate conversation</span>
+  <a href="#hope-introduction">Back to introduction ↑</a>
+ </nav>
  <div class="shell">
   <div class="heading"><p class="kicker" style="color:var(--rose)">A quiet doorway</p><h2>Talk with Hope.</h2><p>This first beta tests Hope's five support modes, school boundaries, and appropriate handoffs without silently storing the student's message.</p></div>
   <div class="console">
@@ -143,9 +151,26 @@ footer{padding:28px 18px;text-align:center;color:var(--muted);font-size:.75rem}
  </div>
 </section>
 
+<section id="hope-resources" aria-labelledby="hope-resources-heading">
+ <div class="shell">
+  <div class="heading"><p class="kicker" style="color:var(--rose)">Verified starting points</p>
+  <h2 id="hope-resources-heading">Find a reliable next doorway.</h2>
+  <p>These public resources help you find a human service or official information. Hope does not check live appointments, shelter beds, benefit eligibility, or local availability.</p></div>
+  <div class="hope-resource-links">
+   <article><h3>Community essentials</h3><p>United Way 211 helps people find local community-service referrals, including basic needs and housing options.</p><a href="https://211.org/" rel="noopener noreferrer" target="_blank">Find local help through 211</a></article>
+   <article><h3>Veterans & families</h3><p>Use the official Department of Veterans Affairs portal for current benefits information and eligibility requirements.</p><a href="https://www.va.gov/resources/getting-started-with-va/" rel="noopener noreferrer" target="_blank">Visit Veterans Affairs</a></article>
+   <article><h3>Immediate emotional support</h3><p>In the United States, call or text 988 for free crisis support. If someone is in immediate danger, contact emergency services.</p><a href="https://988lifeline.org/" rel="noopener noreferrer" target="_blank">Open the 988 Lifeline</a></article>
+  </div>
+  <p class="hope-resource-note">Public directory links verified November 11, 2026. These are referral starting points, not confirmations of individual services or appointments. Do not submit private identity or medical documents in Hope's public chat.</p>
+ </div>
+</section>
 <section id="mentor-language-laboratory" aria-label="Shared AI mentor public knowledge directory" style="margin:24px auto;max-width:1040px;padding:20px;border:2px solid #28332f;border-radius:7px;background:#f4f0e7;color:#28332f;font:400 16px/1.6 Nunito,Arial,sans-serif;text-align:center"><p style="margin:0;font:400 22px/1.3 Cinzel,Georgia,serif">Creative Spark Language Laboratory</p><p style="margin:9px auto 0;max-width:720px">Explore public learning, languages, translation, Aurora and ARSHIF resources. Private mentor CORE and learner records remain protected.</p><a href="https://artist1970.github.io/creative-spark.github.io/language-laboratory/?mentor=hope" style="display:inline-block;margin-top:10px;padding:10px 16px;border-radius:7px;background:#28332f;color:#f4f0e7;font:400 16px Nunito,Arial,sans-serif;text-decoration:none">Explore Public Knowledge Directory</a></section>
 </main>
-<footer>Khaemenes Academy · Counseling & Student Support · Hope Beta v1</footer>
+<footer>Khaemenes Academy · Counseling & Student Support · Hope
+ <nav class="hope-footer-nav" aria-label="Footer navigation">
+  <a href="#hope-introduction">Introduction</a><a href="#hope">Talk with Hope</a><a href="#hope-resources">Public resources</a><a href="https://vervenveda.com/">Verve N Veda</a>
+ </nav>
+</footer>
 
 <script>
 /* Non-conversational launch shortcuts only. The external Hope conversation
@@ -162,6 +187,9 @@ document.querySelectorAll("[data-prompt]").forEach(button=>{
 <script src="hope-public-knowledge-v1.js" defer></script>
 <script src="creative-spark-mentor-qa-v1.js" defer></script>
 <script src="hope-conversation-v1.js" defer></script><script src="hope-voice-v1.js" defer></script>
-<script src="https://vervenveda.com/assets/vnv-ecosystem-toolbar.js"></script>
+<script src="https://vervenveda.com/assets/vnv-333-ticker.js" defer></script>
+<script src="https://vervenveda.com/assets/vnv-ticker-autopopulate.js" defer></script>
+<script src="https://vervenveda.com/assets/vnv-ecosystem-toolbar.js" defer></script>
+<script>window.addEventListener("load",()=>window.VNV_TICKER?.autoPopulate?.({label:"Hope · Compassionate Support",max:14}),{once:true});</script>
 </body>
 </html>
