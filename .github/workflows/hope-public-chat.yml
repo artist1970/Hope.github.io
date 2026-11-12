@@ -4,6 +4,11 @@ on:
     paths:
       - 'index.html'
       - 'hope-conversation-v1.js'
+      - 'hope-public-knowledge-v1.js'
+      - 'creative-spark-mentor-qa-v1.js'
+      - 'knowledge/question-records.v1.json'
+      - 'styles/hope-landing-refinement-v1.css'
+      - 'tests/hope-five-bubble-regression.test.mjs'
       - 'hope-voice-v1.js'
       - 'tests/hope-conversation-safety.test.mjs'
       - '.github/workflows/hope-public-chat.yml'
@@ -24,4 +29,4 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: node --test tests/hope-conversation-safety.test.mjs
+      - run: node --test tests/hope-conversation-safety.test.mjs tests/hope-five-bubble-regression.test.mjs
