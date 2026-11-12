@@ -18,7 +18,7 @@ return "Please do not share passwords, identity numbers, financial details, or p
 }
 if(/^(hi|hello|hey|good morning|good evening)[!. ]*$/.test(s))return "Hello. I'm Hope. You can start wherever you are, and we can take one manageable step together. What would help most today?";
 if(/^(thank you|thanks)[!. ]*$/.test(s))return "You're welcome. You can return to this whenever you need to.";
-const language=window.CreativeSparkLanguageRequest?.answer(raw,{mentorId:"hope"});
+const language=globalThis.CreativeSparkLanguageRequest?.answer(raw,{mentorId:"hope"});
 if(language)return language;
 let topic="";let guidance="";
 if(has(s,["evict","rent","housing","shelter","homeless","nowhere to stay"])){topic="housing";guidance="Would it help to make a short plan for immediate safety, a housing-support call, or the documents to gather? If shelter is needed tonight, contact a local housing crisis service or 211 where available; availability must be confirmed.";}
